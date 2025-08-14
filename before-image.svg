@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4682B4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="person" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFB6C1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF69B4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="400" fill="url(#bg)"/>
+  
+  <!-- 背景装饰 -->
+  <circle cx="50" cy="80" r="30" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="250" cy="120" r="20" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="80" cy="320" r="25" fill="rgba(255,255,255,0.1)"/>
+  
+  <!-- 人像轮廓 -->
+  <ellipse cx="150" cy="120" rx="35" ry="45" fill="url(#person)"/>
+  <rect x="115" y="165" width="70" height="120" fill="url(#person)"/>
+  <ellipse cx="150" cy="285" rx="25" ry="35" fill="url(#person)"/>
+  
+  <!-- 面部特征 -->
+  <circle cx="140" cy="110" r="3" fill="#333"/>
+  <circle cx="160" cy="110" r="3" fill="#333"/>
+  <ellipse cx="150" cy="125" rx="8" ry="3" fill="#333"/>
+  
+  <!-- 头发 -->
+  <ellipse cx="150" cy="95" rx="40" ry="25" fill="#8B4513"/>
+  
+  <!-- 手臂 -->
+  <ellipse cx="120" cy="200" rx="15" ry="25" fill="url(#person)"/>
+  <ellipse cx="180" cy="200" rx="15" ry="25" fill="url(#person)"/>
+  
+  <!-- 阴影 -->
+  <ellipse cx="150" cy="320" rx="40" ry="10" fill="rgba(0,0,0,0.2)"/>
+</svg> 
