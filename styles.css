@@ -10,6 +10,9 @@ body {
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .container {
@@ -31,6 +34,8 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .btn-primary {
@@ -107,10 +112,72 @@ body {
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    white-space: nowrap;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    position: relative;
+    text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% {
+        filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.3));
+    }
+    100% {
+        filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.6));
+    }
+}
+
+/* 科技感装饰元素 */
+.hero-title::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -20px;
+    right: -20px;
+    bottom: -10px;
+    background: linear-gradient(45deg, transparent 30%, rgba(102, 126, 234, 0.1) 50%, transparent 70%);
+    border-radius: 15px;
+    z-index: -1;
+    animation: techBg 4s ease-in-out infinite;
+}
+
+.hero-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    width: 4px;
+    height: 60%;
+    background: linear-gradient(to bottom, transparent, #667eea, transparent);
+    transform: translateY(-50%);
+    border-radius: 2px;
+    animation: techLine 2s ease-in-out infinite;
+}
+
+@keyframes techBg {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.02);
+    }
+}
+
+@keyframes techLine {
+    0%, 100% {
+        opacity: 0.5;
+        height: 60%;
+    }
+    50% {
+        opacity: 1;
+        height: 80%;
+    }
 }
 
 .hero-subtitle {
@@ -175,6 +242,7 @@ body {
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
 
 .before-after {
@@ -192,71 +260,27 @@ body {
     height: 250px;
     border-radius: 10px;
     margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.before-image {
-    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
-    box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
-}
-
-.after-image {
-    background: linear-gradient(135deg, #50C878 0%, #3CB371 100%);
-    box-shadow: 0 10px 30px rgba(80, 200, 120, 0.3);
-}
-
-.image-content {
-    text-align: center;
-    color: white;
-}
-
-.image-content i {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.image-content span {
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-/* 添加图片动画效果 */
-.before-image::before,
-.after-image::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.before-image:hover::before,
-.after-image:hover::before {
-    left: 100%;
-}
-
-.demo-image {
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 桌面端图片尺寸 */
+@media (min-width: 769px) {
+    .demo-image {
+        width: 200px;
+        height: 250px;
+    }
+    
+    .image-demo {
+        width: auto;
+        max-width: none;
+    }
 }
 
 .demo-image:hover {
     transform: translateY(-5px);
-}
-
-.before-image:hover {
-    box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);
-}
-
-.after-image:hover {
-    box-shadow: 0 15px 40px rgba(80, 200, 120, 0.4);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 }
 
 .image-label {
@@ -561,14 +585,38 @@ body {
 }
 
 /* 响应式设计 */
+
+/* 平板设备 (768px 及以下) */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .hero {
+        padding: 60px 0 60px;
+        min-height: auto;
+    }
+    
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 40px;
     }
     
     .hero-title {
         font-size: 2.5rem;
+        line-height: 1.1;
+        white-space: normal;
+    }
+    
+    .hero-title::before,
+    .hero-title::after {
+        display: none;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
     }
     
     .hero-buttons {
@@ -580,12 +628,15 @@ body {
     .btn-large {
         width: 100%;
         max-width: 280px;
+        padding: 18px 36px;
+        font-size: 16px;
     }
     
     .hero-stats {
         justify-content: center;
         gap: 10px;
         flex-wrap: wrap;
+        margin-top: 25px;
     }
     
     .stat-text {
@@ -598,28 +649,243 @@ body {
     
     .before-after {
         flex-direction: column;
+        gap: 20px;
+        align-items: center;
     }
     
     .arrow {
         transform: rotate(90deg);
+        font-size: 2rem;
+        margin: 10px 0;
+    }
+    
+    .image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .demo-image {
+        width: 220px;
+        height: 280px;
+    }
+    
+    .image-demo {
+        padding: 25px;
+        width: 90%;
+        max-width: 400px;
+    }
+    
+    .image-content i {
+        font-size: 3.5rem;
+    }
+    
+    .image-content span {
+        font-size: 1.1rem;
+    }
+    
+    .features {
+        padding: 60px 0;
     }
     
     .features-grid {
         grid-template-columns: 1fr;
+        gap: 25px;
     }
-}
-
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 2rem;
+    
+    .feature-card {
+        padding: 30px 20px;
     }
     
     .section-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    .section-header p {
+        font-size: 1rem;
+    }
+}
+
+/* 手机设备 (480px 及以下) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .hero {
+        padding: 40px 0 40px;
+    }
+    
+    .hero-container {
+        gap: 30px;
+    }
+    
+    .hero-title {
         font-size: 2rem;
+        margin-bottom: 15px;
+        white-space: normal;
+    }
+    
+    .hero-title::before,
+    .hero-title::after {
+        display: none;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+    
+    .btn-large {
+        max-width: 250px;
+        padding: 16px 32px;
+        font-size: 15px;
     }
     
     .hero-stats {
         flex-direction: column;
-        gap: 20px;
+        gap: 8px;
+        margin-top: 20px;
+    }
+    
+    .stat-text {
+        font-size: 0.95rem;
+    }
+    
+    .stat-separator {
+        display: none;
+    }
+    
+    .demo-image {
+        width: 200px;
+        height: 250px;
+    }
+    
+    .image-demo {
+        padding: 20px;
+        width: 95%;
+        max-width: 350px;
+    }
+    
+    .image-content i {
+        font-size: 3rem;
+    }
+    
+    .image-content span {
+        font-size: 1rem;
+    }
+    
+    .image-label {
+        font-size: 0.9rem;
+        margin-top: 8px;
+    }
+    
+    .features {
+        padding: 50px 0;
+    }
+    
+    .feature-card {
+        padding: 25px 15px;
+    }
+    
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .feature-icon i {
+        font-size: 1.5rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.9rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .section-header p {
+        font-size: 0.95rem;
+    }
+    
+    .footer {
+        padding: 30px 0 15px;
+    }
+    
+    .footer-logo {
+        font-size: 1.3rem;
+    }
+    
+    .footer-section p {
+        font-size: 0.9rem;
+    }
+}
+
+/* 超小屏幕设备 (360px 及以下) */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.8rem;
+        white-space: normal;
+    }
+    
+    .hero-title::before,
+    .hero-title::after {
+        display: none;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .btn-large {
+        max-width: 220px;
+        padding: 14px 28px;
+        font-size: 14px;
+    }
+    
+    .demo-image {
+        width: 160px;
+        height: 200px;
+    }
+    
+    .image-content i {
+        font-size: 2.5rem;
+    }
+    
+    .image-content span {
+        font-size: 0.9rem;
+    }
+    
+    .image-demo {
+        padding: 15px;
+        width: 98%;
+        max-width: 300px;
+    }
+    
+    .feature-card {
+        padding: 20px 12px;
+    }
+    
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .feature-icon i {
+        font-size: 1.3rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.85rem;
     }
 } 
